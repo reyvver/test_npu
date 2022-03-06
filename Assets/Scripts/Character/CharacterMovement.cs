@@ -16,6 +16,7 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 destination = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            destination.z = 0;
             MoveCharacterToDestination(destination);
         }
     }
