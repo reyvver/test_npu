@@ -1,9 +1,7 @@
 {
-    "name": "Character",
+    "name": "PlayerData",
     "rootNamespace": "",
-    "references": [
-        "GUID:86dccc47746b419f8dcdb14572884ec8"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -1,18 +1,59 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using PlayerData;
 
-public class CharacterSaveData : MonoBehaviour
+namespace Character
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CharacterSaveData : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private Transform character;
+        [SerializeField] private float saveTimePeriod = 2;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private Coroutine _saveCoroutine;
+        private WaitForSeconds _waitPeriod;
+        private SaveAndLoad _saveSystem;
+        private SaveAndLoad.SaveData _saveData;
+
+        private void Awake()
+        {
+            InitialiseVariables();
+            
+            GetPlayerData();
+            StartSavePlayerData();
+        }
+
+        private void OnDestroy()
+        {
+            if (_saveCoroutine != null)
+                StopCoroutine(_saveCoroutine);
+        }
+
+        private void StartSavePlayerData()
+        {
+            _saveCoroutine = StartCoroutine(SaveOnPeriod());
+        }
+
+        IEnumerator SaveOnPeriod()
+        {
+            while (true)
+            {
+                _saveData.position = character.position;
+                _saveSystem.SaveUserData(_saveData);
+                yield return _waitPeriod;
+            }
+        }
+
+        private void InitialiseVariables()
+        {
+            _saveSystem = new SaveAndLoad();
+            _saveData = new SaveAndLoad.SaveData();
+            _waitPeriod = new WaitForSeconds(saveTimePeriod);
+        }
+
+        private void GetPlayerData()
+        {
+            _saveData = _saveSystem.LoadUserData();
+            character.position = _saveData.position;
+        }
     }
 }

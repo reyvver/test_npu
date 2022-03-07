@@ -1,0 +1,7 @@
+namespace PlayerData;
+
+table ServerData{
+message:string;
+}
+
+root_type ServerData;

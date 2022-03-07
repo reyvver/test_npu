@@ -1,0 +1,13 @@
+namespace PlayerData;
+
+struct Vec3{
+  x:float = 0;
+  y:float = 0;
+  z:float = 0;
+}
+
+table Data{
+position:Vec3;
+}
+
+root_type Data;
